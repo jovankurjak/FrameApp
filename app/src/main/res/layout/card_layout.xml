@@ -5,7 +5,10 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:elevation="5dp"
     card_view:cardCornerRadius="@dimen/card_menu_radius"
-    card_view:cardBackgroundColor="@color/colorPrimary">
+    card_view:cardBackgroundColor="@color/colorPrimary"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/card_image"
@@ -13,7 +16,8 @@
         android:layout_height="@dimen/card_image_height"
         android:src="@drawable/settings_outline"
         android:tint="@color/colorPrimaryTextIcons"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/small_text_padding"/>
 
     <TextView
         android:id="@+id/card_text"
@@ -21,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:layout_gravity="center_horizontal"
+        android:paddingTop="@dimen/small_text_padding"
         android:text="@string/card_text"
         android:textColor="@color/colorPrimaryTextIcons"
         />

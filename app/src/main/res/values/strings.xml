@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">App Frame</string>
     <string name="card_text">SmallApp</string>
+    <string name="media_fragment_text">MEDIA FRAGMENT</string>
+    <string name="settings_fragment_text">SETTINGS FRAGMENT</string>
+    <string name="maps_fragment_text">MAPS FRAGMENT</string>
 </resources>

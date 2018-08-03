@@ -2,17 +2,25 @@ package arch.design.appframe;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import arch.design.appframe.fragments.MapsFragment;
+import arch.design.appframe.fragments.MediaFragment;
+import arch.design.appframe.fragments.SettingsFragment;
 import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private RecyclerView mMenuRecyclerView;
     private UpperMenuAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -53,9 +61,35 @@ public class MainActivity extends AppCompatActivity {
         return dataSet;
     }
 
+
+
     private void setupItemClick() {
         mSubscribe = mAdapter.getClickEvent()
-                .subscribe(s -> Toast.makeText(getApplicationContext(), "Clicked on " + s, Toast.LENGTH_LONG).show());
+                .subscribe(this::replaceFragment);
     }
+    public void replaceFragment(String tag) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
 
+        Log.d(TAG, "Creating/replacing " + tag + " fragment");
+        if (fragment == null) {
+            Log.d(TAG, "Creating new fragment");
+            switch (tag){
+                case "Settings":
+                    fragment = new SettingsFragment();
+                    break;
+                case "Media":
+                    fragment = new MediaFragment();
+                    break;
+                case "Maps":
+                    fragment = new MapsFragment();
+                    break;
+            }
+        }
+        fragmentTransaction.replace(R.id.main_frame, fragment, tag);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.commit();
+    }
 }
