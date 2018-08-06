@@ -1,6 +1,5 @@
 package arch.design.appframe;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.List;
 
@@ -43,10 +44,9 @@ class UpperMenuAdapter extends RecyclerView.Adapter<UpperMenuAdapter.ViewHolder>
             super(view);
             mIcon = (ImageView)view.findViewById(R.id.card_image);
             mTitle = (TextView) view.findViewById(R.id.card_text);
-            view.setOnClickListener((View v) -> {
-                clickSubject.onNext(mImageDataSet.get(getLayoutPosition()).getName());
-//                notifyItemChanged(0);
-            } );
+
+            mSubscribe = RxView.clicks(view)
+                    .subscribe(o -> clickSubject.onNext(mImageDataSet.get(getLayoutPosition()).getName()));
         }
     }
 
@@ -79,7 +79,6 @@ class UpperMenuAdapter extends RecyclerView.Adapter<UpperMenuAdapter.ViewHolder>
     }
 
     void setItemClick() {
-//        mSubscribe = this.getClickEvent().subscribe(s -> Log.d(TAG,"Cliecked: " + s));
         mSubscribe = this.getClickEvent().subscribe(this :: changeLayoutFocus);
     }
 
