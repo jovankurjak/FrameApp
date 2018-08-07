@@ -1,4 +1,4 @@
-package arch.design.appframe;
+package arch.design.appframe.data;
 
 import android.graphics.drawable.Drawable;
 

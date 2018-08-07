@@ -13,6 +13,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import arch.design.appframe.adapter.UpperMenuAdapter;
+import arch.design.appframe.data.ImageDataSet;
 import arch.design.appframe.fragments.MapsFragment;
 import arch.design.appframe.fragments.MediaFragment;
 import arch.design.appframe.fragments.SettingsFragment;
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Init methods
+     * <p>
+     * -prepare data
+     * -do binding to get clicks from recyclerview(UpperMenuAdapter)
      */
     private List<ImageDataSet> prepareDataSet() {
         List<ImageDataSet> dataSet = new ArrayList<>();
@@ -61,11 +66,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void setupItemClick() {
         mSubscribe = mAdapter.getClickEvent()
                 .subscribe(this::replaceFragment);
     }
+
+    /**
+     * @param tag fragment tag to create or replace
+     */
     public void replaceFragment(String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -74,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Creating/replacing " + tag + " fragment");
         if (fragment == null) {
             Log.d(TAG, "Creating new fragment");
-            switch (tag){
+            switch (tag) {
                 case "Settings":
                     fragment = new SettingsFragment();
                     break;
