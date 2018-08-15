@@ -14,8 +14,8 @@ import com.jakewharton.rxbinding2.view.RxView;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import arch.design.appframe.data.ImageDataSet;
 import arch.design.appframe.R;
+import arch.design.appframe.data.ImageDataSet;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
